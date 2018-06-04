@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <title>
+            JS Animations
+        </title>
+    </head>
+    <body>
+        <div id="mario" style="position: absolute;">
+            <img id="mario" src="mario/mario1.png" style="width: 50px; height: 100px;">
+        </div>
+        <div id="base-wall" style="position: fixed; bottom: 0px; height: 250px; width: 100%; background: url('mario/bricks.jpg');">
+        </div>
+
+        <script>
+            (function(){
+
+                function getLengthFromPx(units) {
+                    return parseInt((units).substr(0, units.length - 2));
+                }
+
+                var mario = document.getElementById('mario');
+                var baseWall = document.getElementById('base-wall');
+                mario.style.bottom = getLengthFromPx(baseWall.style.bottom) + getLengthFromPx(baseWall.style.height) + 'px';
+            }())
+
+            function getLengthFromPx(units) {
+                return parseInt((units).substr(0, units.length - 2));
+            }
+
+            i=1;
+            j=0;
+            function move() {
+                var e = document.getElementById('mario');
+                e.style.left = i+'px';
+                i=i+4;
+            }
+
+            function moveBack() {
+                i=i-4;
+                var e = document.getElementById('mario');
+                e.style.left = i+'px';
+            }
+
+            function moveUp(element) {
+                j=j+40;
+                var e = document.getElementById('mario');
+                // e.style.bottom = getLengthFromPx(e.style.bottom) + j +'px';
+                e.style.transform = 'translateY('+(element.clientY+25)+'px)';
+            }
+
+            document.addEventListener('keydown', function (e) {
+
+                e = e || window.event;
+
+                if (e.keyCode == '38') {
+                    // up arrow
+                    moveUp();
+                }
+                else if (e.keyCode == '40') {
+                    // down arrow
+                }
+                else if (e.keyCode == '37') {
+                // left arrow
+                    moveBack();
+                }
+                else if (e.keyCode == '39') {
+                // right arrow
+                    move();
+                }
+
+            });
+            
+        </script>
+    </body>
+</html>
